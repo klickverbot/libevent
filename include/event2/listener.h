@@ -87,7 +87,7 @@ typedef void (*evconnlistener_errorcb)(struct evconnlistener *, void *);
       file descriptor, and it should already be bound to an appropriate
       port and address.
 */
-struct evconnlistener *evconnlistener_new(struct event_base *base,
+LIBEVENT_API struct evconnlistener *evconnlistener_new(struct event_base *base,
     evconnlistener_cb cb, void *ptr, unsigned flags, int backlog,
     evutil_socket_t fd);
 /**
@@ -105,35 +105,35 @@ struct evconnlistener *evconnlistener_new(struct event_base *base,
    @param addr The address to listen for connections on.
    @param socklen The length of the address.
  */
-struct evconnlistener *evconnlistener_new_bind(struct event_base *base,
+LIBEVENT_API struct evconnlistener *evconnlistener_new_bind(struct event_base *base,
     evconnlistener_cb cb, void *ptr, unsigned flags, int backlog,
     const struct sockaddr *sa, int socklen);
 /**
    Disable and deallocate an evconnlistener.
  */
-void evconnlistener_free(struct evconnlistener *lev);
+LIBEVENT_API void evconnlistener_free(struct evconnlistener *lev);
 /**
    Re-enable an evconnlistener that has been disabled.
  */
-int evconnlistener_enable(struct evconnlistener *lev);
+LIBEVENT_API int evconnlistener_enable(struct evconnlistener *lev);
 /**
    Stop listening for connections on an evconnlistener.
  */
-int evconnlistener_disable(struct evconnlistener *lev);
+LIBEVENT_API int evconnlistener_disable(struct evconnlistener *lev);
 
 /** Return an evconnlistener's associated event_base. */
-struct event_base *evconnlistener_get_base(struct evconnlistener *lev);
+LIBEVENT_API struct event_base *evconnlistener_get_base(struct evconnlistener *lev);
 
 /** Return the socket that an evconnlistner is listening on. */
-evutil_socket_t evconnlistener_get_fd(struct evconnlistener *lev);
+LIBEVENT_API evutil_socket_t evconnlistener_get_fd(struct evconnlistener *lev);
 
 /** Change the callback on the listener to cb and its user_data to arg.
  */
-void evconnlistener_set_cb(struct evconnlistener *lev,
+LIBEVENT_API void evconnlistener_set_cb(struct evconnlistener *lev,
     evconnlistener_cb cb, void *arg);
 
 /** Set an evconnlistener's error callback. */
-void evconnlistener_set_error_cb(struct evconnlistener *lev,
+LIBEVENT_API void evconnlistener_set_error_cb(struct evconnlistener *lev,
     evconnlistener_errorcb errorcb);
 
 #ifdef __cplusplus

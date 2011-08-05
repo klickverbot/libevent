@@ -70,7 +70,7 @@ extern "C" {
 
   @see event_base_set(), event_base_new()
  */
-struct event_base *event_init(void);
+LIBEVENT_API struct event_base *event_init(void);
 
 /**
   Loop to process events.
@@ -83,7 +83,7 @@ struct event_base *event_init(void);
 
   @see event_base_dispatch(), event_init()
  */
-int event_dispatch(void);
+LIBEVENT_API int event_dispatch(void);
 
 /**
   Handle events.
@@ -96,7 +96,7 @@ int event_dispatch(void);
 
   @see event_base_loop(), event_init()
 */
-int event_loop(int);
+LIBEVENT_API int event_loop(int);
 
 
 /**
@@ -111,7 +111,7 @@ int event_loop(int);
 
   @see event_init, event_base_loopexit()
   */
-int event_loopexit(const struct timeval *);
+LIBEVENT_API int event_loopexit(const struct timeval *);
 
 
 /**
@@ -126,7 +126,7 @@ int event_loopexit(const struct timeval *);
 
   @see event_base_loopbreak(), event_init()
  */
-int event_loopbreak(void);
+LIBEVENT_API int event_loopbreak(void);
 
 /**
   Schedule a one-time event to occur.
@@ -137,7 +137,7 @@ int event_loopbreak(void);
 
   @see event_base_once()
  */
-int event_once(evutil_socket_t , short,
+LIBEVENT_API int event_once(evutil_socket_t , short,
     void (*)(evutil_socket_t, short, void *), void *, const struct timeval *);
 
 
@@ -150,7 +150,7 @@ int event_once(evutil_socket_t , short,
 
   @see event_base_get_method()
  */
-const char *event_get_method(void);
+LIBEVENT_API const char *event_get_method(void);
 
 
 /**
@@ -162,7 +162,7 @@ const char *event_get_method(void);
 
   @see event_base_priority_init()
  */
-int	event_priority_init(int);
+LIBEVENT_API int	event_priority_init(int);
 
 /**
   Prepare an event structure to be added.
@@ -171,7 +171,7 @@ int	event_priority_init(int);
      a subsequent call to event_base_set() to be safe under most circumstances.
      Use event_assign() or event_new() instead.
  */
-void event_set(struct event *, evutil_socket_t, short, void (*)(evutil_socket_t, short, void *), void *);
+LIBEVENT_API void event_set(struct event *, evutil_socket_t, short, void (*)(evutil_socket_t, short, void *), void *);
 
 #define evtimer_set(ev, cb, arg)	event_set((ev), -1, 0, (cb), (arg))
 #define evsignal_set(ev, x, cb, arg)	\

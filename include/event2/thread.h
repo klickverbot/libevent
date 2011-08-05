@@ -124,7 +124,7 @@ struct evthread_lock_callbacks {
  * probably shouldn't call this function; instead, use
  * evthread_use_windows_threads() or evthread_use_posix_threads() if you can.
  */
-int evthread_set_lock_callbacks(const struct evthread_lock_callbacks *);
+LIBEVENT_API int evthread_set_lock_callbacks(const struct evthread_lock_callbacks *);
 
 #define EVTHREAD_CONDITION_API_VERSION 1
 
@@ -174,7 +174,7 @@ struct evthread_condition_callbacks {
  * probably shouldn't call this function; instead, use
  * evthread_use_windows_threads() or evthread_use_pthreads() if you can.
  */
-int evthread_set_condition_callbacks(
+LIBEVENT_API int evthread_set_condition_callbacks(
 	const struct evthread_condition_callbacks *);
 
 /**
@@ -184,7 +184,7 @@ int evthread_set_condition_callbacks(
    @param id_fn the identify function Libevent should invoke to
      determine the identity of a thread.
 */
-void evthread_set_id_callback(
+LIBEVENT_API void evthread_set_id_callback(
     unsigned long (*id_fn)(void));
 
 #if (defined(WIN32) && !defined(_EVENT_DISABLE_THREAD_SUPPORT)) || defined(_EVENT_IN_DOXYGEN)
@@ -192,7 +192,7 @@ void evthread_set_id_callback(
     functions.  Unavailable if Libevent is not built for Windows.
 
     @return 0 on success, -1 on failure. */
-int evthread_use_windows_threads(void);
+LIBEVENT_API int evthread_use_windows_threads(void);
 /**
    Defined if Libevent was built with support for evthread_use_windows_threads()
 */
@@ -205,7 +205,7 @@ int evthread_use_windows_threads(void);
     libraries to link against Libevent_pthreads as well as Libevent.
 
     @return 0 on success, -1 on failure. */
-int evthread_use_pthreads(void);
+LIBEVENT_API int evthread_use_pthreads(void);
 /** Defined if Libevent was built with support for evthread_use_pthreads() */
 #define EVTHREAD_USE_PTHREADS_IMPLEMENTED 1
 
@@ -217,7 +217,7 @@ int evthread_use_pthreads(void);
  * If you're going to call this function, you must do so before any locks are
  * allocated.
  **/
-void evthread_enable_lock_debuging(void);
+LIBEVENT_API void evthread_enable_lock_debuging(void);
 
 #endif /* _EVENT_DISABLE_THREAD_SUPPORT */
 
@@ -227,7 +227,7 @@ struct event_base;
 
     @return 0 on success, -1 on failure.
  */
-int evthread_make_base_notifiable(struct event_base *base);
+LIBEVENT_API int evthread_make_base_notifiable(struct event_base *base);
 
 #ifdef __cplusplus
 }

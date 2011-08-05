@@ -140,13 +140,13 @@ struct evbuffer_iovec {
   @return a pointer to a newly allocated evbuffer struct, or NULL if an error
 	occurred
  */
-struct evbuffer *evbuffer_new(void);
+LIBEVENT_API struct evbuffer *evbuffer_new(void);
 /**
   Deallocate storage for an evbuffer.
 
   @param buf pointer to the evbuffer to be freed
  */
-void evbuffer_free(struct evbuffer *buf);
+LIBEVENT_API void evbuffer_free(struct evbuffer *buf);
 
 /**
    Enable locking on an evbuffer so that it can safely be used by multiple
@@ -160,19 +160,19 @@ void evbuffer_free(struct evbuffer *buf);
    @param lock A lock object, or NULL if we should allocate our own.
    @return 0 on success, -1 on failure.
  */
-int evbuffer_enable_locking(struct evbuffer *buf, void *lock);
+LIBEVENT_API int evbuffer_enable_locking(struct evbuffer *buf, void *lock);
 
 /**
    Acquire the lock on an evbuffer.  Has no effect if locking was not enabled
    with evbuffer_enable_locking.
 */
-void evbuffer_lock(struct evbuffer *buf);
+LIBEVENT_API void evbuffer_lock(struct evbuffer *buf);
 
 /**
    Release the lock on an evbuffer.  Has no effect if locking was not enabled
    with evbuffer_enable_locking.
 */
-void evbuffer_unlock(struct evbuffer *buf);
+LIBEVENT_API void evbuffer_unlock(struct evbuffer *buf);
 
 
 /** If this flag is set, then we will not use evbuffer_peek(),
@@ -199,7 +199,7 @@ void evbuffer_unlock(struct evbuffer *buf);
  * @param flags One or more EVBUFFER_FLAG_* options
  * @return 0 on success, -1 on failure.
  */
-int evbuffer_set_flags(struct evbuffer *buf, ev_uint64_t flags);
+LIBEVENT_API int evbuffer_set_flags(struct evbuffer *buf, ev_uint64_t flags);
 /** Change the flags that are set for an evbuffer by removing some.
  *
  * @param buffer the evbuffer that the callback is watching.
@@ -207,7 +207,7 @@ int evbuffer_set_flags(struct evbuffer *buf, ev_uint64_t flags);
  * @param flags One or more EVBUFFER_FLAG_* options
  * @return 0 on success, -1 on failure.
  */
-int evbuffer_clear_flags(struct evbuffer *buf, ev_uint64_t flags);
+LIBEVENT_API int evbuffer_clear_flags(struct evbuffer *buf, ev_uint64_t flags);
 
 /**
   Returns the total number of bytes stored in the evbuffer
@@ -215,7 +215,7 @@ int evbuffer_clear_flags(struct evbuffer *buf, ev_uint64_t flags);
   @param buf pointer to the evbuffer
   @return the number of bytes stored in the evbuffer
 */
-size_t evbuffer_get_length(const struct evbuffer *buf);
+LIBEVENT_API size_t evbuffer_get_length(const struct evbuffer *buf);
 
 /**
    Returns the number of contiguous available bytes in the first buffer chain.
@@ -229,7 +229,7 @@ size_t evbuffer_get_length(const struct evbuffer *buf);
    @return 0 if no data is available, otherwise the number of available bytes
      in the first buffer chain.
 */
-size_t evbuffer_get_contiguous_space(const struct evbuffer *buf);
+LIBEVENT_API size_t evbuffer_get_contiguous_space(const struct evbuffer *buf);
 
 /**
   Expands the available space in an evbuffer.
@@ -241,7 +241,7 @@ size_t evbuffer_get_contiguous_space(const struct evbuffer *buf);
   @param datlen the new minimum length requirement
   @return 0 if successful, or -1 if an error occurred
 */
-int evbuffer_expand(struct evbuffer *buf, size_t datlen);
+LIBEVENT_API int evbuffer_expand(struct evbuffer *buf, size_t datlen);
 
 /**
    Reserves space in the last chain or chains of an evbuffer.
@@ -276,7 +276,7 @@ int evbuffer_expand(struct evbuffer *buf, size_t datlen);
    @return the number of provided extents, or -1 on error.
    @see evbuffer_commit_space()
 */
-int
+LIBEVENT_API int
 evbuffer_reserve_space(struct evbuffer *buf, ev_ssize_t size,
     struct evbuffer_iovec *vec, int n_vec);
 
@@ -301,7 +301,7 @@ evbuffer_reserve_space(struct evbuffer *buf, ev_ssize_t size,
    @return 0 on success, -1 on error
    @see evbuffer_reserve_space()
 */
-int evbuffer_commit_space(struct evbuffer *buf,
+LIBEVENT_API int evbuffer_commit_space(struct evbuffer *buf,
     struct evbuffer_iovec *vec, int n_vecs);
 
 /**
@@ -312,7 +312,7 @@ int evbuffer_commit_space(struct evbuffer *buf,
   @param datlen the number of bytes to be copied from the data buffer
   @return 0 on success, -1 on failure.
  */
-int evbuffer_add(struct evbuffer *buf, const void *data, size_t datlen);
+LIBEVENT_API int evbuffer_add(struct evbuffer *buf, const void *data, size_t datlen);
 
 
 /**
@@ -326,7 +326,7 @@ int evbuffer_add(struct evbuffer *buf, const void *data, size_t datlen);
   @param datlen the maximum size of the destination buffer
   @return the number of bytes read, or -1 if we can't drain the buffer.
  */
-int evbuffer_remove(struct evbuffer *buf, void *data, size_t datlen);
+LIBEVENT_API int evbuffer_remove(struct evbuffer *buf, void *data, size_t datlen);
 
 /**
   Read data from an evbuffer, and leave the buffer unchanged.
@@ -339,7 +339,7 @@ int evbuffer_remove(struct evbuffer *buf, void *data, size_t datlen);
   @param datlen the maximum size of the destination buffer
   @return the number of bytes read, or -1 if we can't drain the buffer.
  */
-ev_ssize_t evbuffer_copyout(struct evbuffer *buf, void *data_out, size_t datlen);
+LIBEVENT_API ev_ssize_t evbuffer_copyout(struct evbuffer *buf, void *data_out, size_t datlen);
 
 /**
   Read data from an evbuffer into another evbuffer, draining
@@ -354,7 +354,7 @@ ev_ssize_t evbuffer_copyout(struct evbuffer *buf, void *data_out, size_t datlen)
   @param datlen the maximum numbers of bytes to transfer
   @return the number of bytes read
  */
-int evbuffer_remove_buffer(struct evbuffer *src, struct evbuffer *dst,
+LIBEVENT_API int evbuffer_remove_buffer(struct evbuffer *src, struct evbuffer *dst,
     size_t datlen);
 
 /** Used to tell evbuffer_readln what kind of line-ending to look for.
@@ -393,7 +393,7 @@ enum evbuffer_eol_style {
  * @param eol_style the style of line-ending to use.
  * @return pointer to a single line, or NULL if an error occurred
  */
-char *evbuffer_readln(struct evbuffer *buffer, size_t *n_read_out,
+LIBEVENT_API char *evbuffer_readln(struct evbuffer *buffer, size_t *n_read_out,
     enum evbuffer_eol_style eol_style);
 
 /**
@@ -408,7 +408,7 @@ char *evbuffer_readln(struct evbuffer *buffer, size_t *n_read_out,
 
   @see evbuffer_remove_buffer()
  */
-int evbuffer_add_buffer(struct evbuffer *outbuf, struct evbuffer *inbuf);
+LIBEVENT_API int evbuffer_add_buffer(struct evbuffer *outbuf, struct evbuffer *inbuf);
 
 /**
    A cleanup function for a piece of memory added to an evbuffer by
@@ -434,7 +434,7 @@ typedef void (*evbuffer_ref_cleanup_cb)(const void *data,
   @param cleanupfn_arg optional argument to the cleanup callback
   @return 0 if successful, or -1 if an error occurred
  */
-int evbuffer_add_reference(struct evbuffer *outbuf,
+LIBEVENT_API int evbuffer_add_reference(struct evbuffer *outbuf,
     const void *data, size_t datlen,
     evbuffer_ref_cleanup_cb cleanupfn, void *cleanupfn_arg);
 
@@ -459,7 +459,7 @@ int evbuffer_add_reference(struct evbuffer *outbuf,
   @return 0 if successful, or -1 if an error occurred
 */
 
-int evbuffer_add_file(struct evbuffer *outbuf, int fd, ev_off_t offset,
+LIBEVENT_API int evbuffer_add_file(struct evbuffer *outbuf, int fd, ev_off_t offset,
     ev_off_t length);
 
 /**
@@ -474,7 +474,7 @@ int evbuffer_add_file(struct evbuffer *outbuf, int fd, ev_off_t offset,
 
   @see evutil_printf(), evbuffer_add_vprintf()
  */
-int evbuffer_add_printf(struct evbuffer *buf, const char *fmt, ...)
+LIBEVENT_API int evbuffer_add_printf(struct evbuffer *buf, const char *fmt, ...)
 #ifdef __GNUC__
   __attribute__((format(printf, 2, 3)))
 #endif
@@ -488,7 +488,7 @@ int evbuffer_add_printf(struct evbuffer *buf, const char *fmt, ...)
   @param ap a varargs va_list argument array that will be passed to vprintf(3)
   @return The number of bytes added if successful, or -1 if an error occurred.
  */
-int evbuffer_add_vprintf(struct evbuffer *buf, const char *fmt, va_list ap);
+LIBEVENT_API int evbuffer_add_vprintf(struct evbuffer *buf, const char *fmt, va_list ap);
 
 
 /**
@@ -498,7 +498,7 @@ int evbuffer_add_vprintf(struct evbuffer *buf, const char *fmt, va_list ap);
   @param len the number of bytes to drain from the beginning of the buffer
   @return 0 on success, -1 on failure.
  */
-int evbuffer_drain(struct evbuffer *buf, size_t len);
+LIBEVENT_API int evbuffer_drain(struct evbuffer *buf, size_t len);
 
 
 /**
@@ -511,7 +511,7 @@ int evbuffer_drain(struct evbuffer *buf, size_t len);
   @return the number of bytes written, or -1 if an error occurred
   @see evbuffer_read()
  */
-int evbuffer_write(struct evbuffer *buffer, evutil_socket_t fd);
+LIBEVENT_API int evbuffer_write(struct evbuffer *buffer, evutil_socket_t fd);
 
 /**
   Write some of the contents of an evbuffer to a file descriptor.
@@ -525,7 +525,7 @@ int evbuffer_write(struct evbuffer *buffer, evutil_socket_t fd);
   @return the number of bytes written, or -1 if an error occurred
   @see evbuffer_read()
  */
-int evbuffer_write_atmost(struct evbuffer *buffer, evutil_socket_t fd,
+LIBEVENT_API int evbuffer_write_atmost(struct evbuffer *buffer, evutil_socket_t fd,
 						  ev_ssize_t howmuch);
 
 /**
@@ -537,7 +537,7 @@ int evbuffer_write_atmost(struct evbuffer *buffer, evutil_socket_t fd,
   @return the number of bytes read, or -1 if an error occurred
   @see evbuffer_write()
  */
-int evbuffer_read(struct evbuffer *buffer, evutil_socket_t fd, int howmuch);
+LIBEVENT_API int evbuffer_read(struct evbuffer *buffer, evutil_socket_t fd, int howmuch);
 
 /**
    Search for a string within an evbuffer.
@@ -550,7 +550,7 @@ int evbuffer_read(struct evbuffer *buffer, evutil_socket_t fd, int howmuch);
      first occurrence of the string in the buffer after 'start'.  The 'pos'
      field of the result is -1 if the string was not found.
  */
-struct evbuffer_ptr evbuffer_search(struct evbuffer *buffer, const char *what, size_t len, const struct evbuffer_ptr *start);
+LIBEVENT_API struct evbuffer_ptr evbuffer_search(struct evbuffer *buffer, const char *what, size_t len, const struct evbuffer_ptr *start);
 
 /**
    Search for a string within part of an evbuffer.
@@ -566,7 +566,7 @@ struct evbuffer_ptr evbuffer_search(struct evbuffer *buffer, const char *what, s
      first occurrence of the string in the buffer after 'start'.  The 'pos'
      field of the result is -1 if the string was not found.
  */
-struct evbuffer_ptr evbuffer_search_range(struct evbuffer *buffer, const char *what, size_t len, const struct evbuffer_ptr *start, const struct evbuffer_ptr *end);
+LIBEVENT_API struct evbuffer_ptr evbuffer_search_range(struct evbuffer *buffer, const char *what, size_t len, const struct evbuffer_ptr *start, const struct evbuffer_ptr *end);
 
 /**
    Defines how to adjust an evbuffer_ptr by evbuffer_ptr_set()
@@ -592,7 +592,7 @@ enum evbuffer_ptr_how {
    @param how determines how the pointer should be manipulated.
    @returns 0 on success or -1 otherwise
 */
-int
+LIBEVENT_API int
 evbuffer_ptr_set(struct evbuffer *buffer, struct evbuffer_ptr *ptr,
     size_t position, enum evbuffer_ptr_how how);
 
@@ -610,7 +610,7 @@ evbuffer_ptr_set(struct evbuffer *buffer, struct evbuffer_ptr *ptr,
      first occurrence EOL in the buffer after 'start'.  The 'pos'
      field of the result is -1 if the string was not found.
  */
-struct evbuffer_ptr evbuffer_search_eol(struct evbuffer *buffer,
+LIBEVENT_API struct evbuffer_ptr evbuffer_search_eol(struct evbuffer *buffer,
     struct evbuffer_ptr *start, size_t *eol_len_out,
     enum evbuffer_eol_style eol_style);
 
@@ -640,7 +640,7 @@ struct evbuffer_ptr evbuffer_search_eol(struct evbuffer *buffer,
        than n_vec if we would need more to return all the data that was
        requested.
  */
-int evbuffer_peek(struct evbuffer *buffer, ev_ssize_t len,
+LIBEVENT_API int evbuffer_peek(struct evbuffer *buffer, ev_ssize_t len,
     struct evbuffer_ptr *start_at,
     struct evbuffer_iovec *vec_out, int n_vec);
 
@@ -692,7 +692,7 @@ struct evbuffer_cb_entry;
   @param cbarg an argument to be provided to the callback function
   @return a handle to the callback on success, or NULL on failure.
  */
-struct evbuffer_cb_entry *evbuffer_add_cb(struct evbuffer *buffer, evbuffer_cb_func cb, void *cbarg);
+LIBEVENT_API struct evbuffer_cb_entry *evbuffer_add_cb(struct evbuffer *buffer, evbuffer_cb_func cb, void *cbarg);
 
 /** Remove a callback from an evbuffer, given a handle returned from
     evbuffer_add_cb.
@@ -702,7 +702,7 @@ struct evbuffer_cb_entry *evbuffer_add_cb(struct evbuffer *buffer, evbuffer_cb_f
     @return 0 if a callback was removed, or -1 if no matching callback was
     found.
  */
-int evbuffer_remove_cb_entry(struct evbuffer *buffer,
+LIBEVENT_API int evbuffer_remove_cb_entry(struct evbuffer *buffer,
 			     struct evbuffer_cb_entry *ent);
 
 /** Remove a callback from an evbuffer, given the function and argument
@@ -711,7 +711,7 @@ int evbuffer_remove_cb_entry(struct evbuffer *buffer,
     @return 0 if a callback was removed, or -1 if no matching callback was
     found.
  */
-int evbuffer_remove_cb(struct evbuffer *buffer, evbuffer_cb_func cb, void *cbarg);
+LIBEVENT_API int evbuffer_remove_cb(struct evbuffer *buffer, evbuffer_cb_func cb, void *cbarg);
 
 /** If this flag is not set, then a callback is temporarily disabled, and
  * should not be invoked.
@@ -727,7 +727,7 @@ int evbuffer_remove_cb(struct evbuffer *buffer, evbuffer_cb_func cb, void *cbarg
     @param flags EVBUFFER_CB_ENABLED to re-enable the callback.
     @return 0 on success, -1 on failure.
  */
-int evbuffer_cb_set_flags(struct evbuffer *buffer,
+LIBEVENT_API int evbuffer_cb_set_flags(struct evbuffer *buffer,
 			  struct evbuffer_cb_entry *cb, ev_uint32_t flags);
 
 /** Change the flags that are set for a callback on a buffer by removing some
@@ -737,7 +737,7 @@ int evbuffer_cb_set_flags(struct evbuffer *buffer,
     @param flags EVBUFFER_CB_ENABLED to disable the callback.
     @return 0 on success, -1 on failure.
  */
-int evbuffer_cb_clear_flags(struct evbuffer *buffer,
+LIBEVENT_API int evbuffer_cb_clear_flags(struct evbuffer *buffer,
 			  struct evbuffer_cb_entry *cb, ev_uint32_t flags);
 
 #if 0
@@ -750,7 +750,7 @@ int evbuffer_cb_clear_flags(struct evbuffer *buffer,
 	@param the buffer that the callback is watching.
 	@param cb the callback we want to suspend.
  */
-void evbuffer_cb_suspend(struct evbuffer *buffer, struct evbuffer_cb_entry *cb);
+LIBEVENT_API void evbuffer_cb_suspend(struct evbuffer *buffer, struct evbuffer_cb_entry *cb);
 /** Stop postponing a callback that we postponed with evbuffer_cb_suspend.
 
 	If data was added to or removed from the buffer while the callback was
@@ -759,7 +759,7 @@ void evbuffer_cb_suspend(struct evbuffer *buffer, struct evbuffer_cb_entry *cb);
 	@param the buffer that the callback is watching.
 	@param cb the callback we want to stop suspending.
  */
-void evbuffer_cb_unsuspend(struct evbuffer *buffer, struct evbuffer_cb_entry *cb);
+LIBEVENT_API void evbuffer_cb_unsuspend(struct evbuffer *buffer, struct evbuffer_cb_entry *cb);
 #endif
 
 /**
@@ -771,7 +771,7 @@ void evbuffer_cb_unsuspend(struct evbuffer *buffer, struct evbuffer_cb_entry *cb
   @return a pointer to the contiguous memory array
 */
 
-unsigned char *evbuffer_pullup(struct evbuffer *buf, ev_ssize_t size);
+LIBEVENT_API unsigned char *evbuffer_pullup(struct evbuffer *buf, ev_ssize_t size);
 
 /**
   Prepends data to the beginning of the evbuffer
@@ -782,7 +782,7 @@ unsigned char *evbuffer_pullup(struct evbuffer *buf, ev_ssize_t size);
   @return 0 if successful, or -1 otherwise
 */
 
-int evbuffer_prepend(struct evbuffer *buf, const void *data, size_t size);
+LIBEVENT_API int evbuffer_prepend(struct evbuffer *buf, const void *data, size_t size);
 
 /**
   Prepends all data from the src evbuffer to the beginning of the dst
@@ -792,7 +792,7 @@ int evbuffer_prepend(struct evbuffer *buf, const void *data, size_t size);
   @param src the evbuffer to prepend; it will be emptied as a result
   @return 0 if successful, or -1 otherwise
 */
-int evbuffer_prepend_buffer(struct evbuffer *dst, struct evbuffer* src);
+LIBEVENT_API int evbuffer_prepend_buffer(struct evbuffer *dst, struct evbuffer* src);
 
 /**
    Prevent calls that modify an evbuffer from succeeding. A buffer may
@@ -808,7 +808,7 @@ int evbuffer_prepend_buffer(struct evbuffer *dst, struct evbuffer* src);
       we freeze the back.
    @return 0 on success, -1 on failure.
 */
-int evbuffer_freeze(struct evbuffer *buf, int at_front);
+LIBEVENT_API int evbuffer_freeze(struct evbuffer *buf, int at_front);
 /**
    Re-enable calls that modify an evbuffer.
 
@@ -817,7 +817,7 @@ int evbuffer_freeze(struct evbuffer *buf, int at_front);
       we unfreeze the back.
    @return 0 on success, -1 on failure.
  */
-int evbuffer_unfreeze(struct evbuffer *buf, int at_front);
+LIBEVENT_API int evbuffer_unfreeze(struct evbuffer *buf, int at_front);
 
 struct event_base;
 /**
@@ -827,7 +827,7 @@ struct event_base;
    This can be used to serialize all the callbacks to a single thread
    of execution.
  */
-int evbuffer_defer_callbacks(struct evbuffer *buffer, struct event_base *base);
+LIBEVENT_API int evbuffer_defer_callbacks(struct evbuffer *buffer, struct event_base *base);
 
 #ifdef __cplusplus
 }

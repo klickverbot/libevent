@@ -285,13 +285,13 @@ extern "C" {
 
     Parameters and return values are as for socketpair()
 */
-int evutil_socketpair(int d, int type, int protocol, evutil_socket_t sv[2]);
+LIBEVENT_API int evutil_socketpair(int d, int type, int protocol, evutil_socket_t sv[2]);
 /** Do platform-specific operations as needed to make a socket nonblocking.
 
     @param sock The socket to make nonblocking
     @return 0 on success, -1 on failure
  */
-int evutil_make_socket_nonblocking(evutil_socket_t sock);
+LIBEVENT_API int evutil_make_socket_nonblocking(evutil_socket_t sock);
 
 /** Do platform-specific operations to make a listener socket reusable.
 
@@ -304,7 +304,7 @@ int evutil_make_socket_nonblocking(evutil_socket_t sock);
     @param sock The socket to make reusable
     @return 0 on success, -1 on failure
  */
-int evutil_make_listen_socket_reuseable(evutil_socket_t sock);
+LIBEVENT_API int evutil_make_listen_socket_reuseable(evutil_socket_t sock);
 
 /** Do platform-specific operations as needed to close a socket upon a
     successful execution of one of the exec*() functions.
@@ -312,7 +312,7 @@ int evutil_make_listen_socket_reuseable(evutil_socket_t sock);
     @param sock The socket to be closed
     @return 0 on success, -1 on failure
  */
-int evutil_make_socket_closeonexec(evutil_socket_t sock);
+LIBEVENT_API int evutil_make_socket_closeonexec(evutil_socket_t sock);
 
 /** Do the platform-specific call needed to close a socket returned from
     socket() or accept().
@@ -320,7 +320,7 @@ int evutil_make_socket_closeonexec(evutil_socket_t sock);
     @param sock The socket to be closed
     @return 0 on success, -1 on failure
  */
-int evutil_closesocket(evutil_socket_t sock);
+LIBEVENT_API int evutil_closesocket(evutil_socket_t sock);
 #define EVUTIL_CLOSESOCKET(s) evutil_closesocket(s)
 
 
@@ -331,9 +331,9 @@ int evutil_closesocket(evutil_socket_t sock);
 #define EVUTIL_SET_SOCKET_ERROR(errcode)		\
 	do { WSASetLastError(errcode); } while (0)
 /** Return the most recent socket error to occur on sock. */
-int evutil_socket_geterror(evutil_socket_t sock);
+LIBEVENT_API int evutil_socket_geterror(evutil_socket_t sock);
 /** Convert a socket error to a string. */
-const char *evutil_socket_error_to_string(int errcode);
+LIBEVENT_API const char *evutil_socket_error_to_string(int errcode);
 #elif defined(_EVENT_IN_DOXYGEN)
 /**
    @name Socket error functions
@@ -428,20 +428,20 @@ const char *evutil_socket_error_to_string(int errcode);
 
 /* big-int related functions */
 /** Parse a 64-bit value from a string.  Arguments are as for strtol. */
-ev_int64_t evutil_strtoll(const char *s, char **endptr, int base);
+LIBEVENT_API ev_int64_t evutil_strtoll(const char *s, char **endptr, int base);
 
 /** Replacement for gettimeofday on platforms that lack it. */
 #ifdef _EVENT_HAVE_GETTIMEOFDAY
 #define evutil_gettimeofday(tv, tz) gettimeofday((tv), (tz))
 #else
 struct timezone;
-int evutil_gettimeofday(struct timeval *tv, struct timezone *tz);
+LIBEVENT_API int evutil_gettimeofday(struct timeval *tv, struct timezone *tz);
 #endif
 
 /** Replacement for snprintf to get consistent behavior on platforms for
     which the return value of snprintf does not conform to C99.
  */
-int evutil_snprintf(char *buf, size_t buflen, const char *format, ...)
+LIBEVENT_API int evutil_snprintf(char *buf, size_t buflen, const char *format, ...)
 #ifdef __GNUC__
 	__attribute__((format(printf, 3, 4)))
 #endif
@@ -449,12 +449,12 @@ int evutil_snprintf(char *buf, size_t buflen, const char *format, ...)
 /** Replacement for vsnprintf to get consistent behavior on platforms for
     which the return value of snprintf does not conform to C99.
  */
-int evutil_vsnprintf(char *buf, size_t buflen, const char *format, va_list ap);
+LIBEVENT_API int evutil_vsnprintf(char *buf, size_t buflen, const char *format, va_list ap);
 
 /** Replacement for inet_ntop for platforms which lack it. */
-const char *evutil_inet_ntop(int af, const void *src, char *dst, size_t len);
+LIBEVENT_API const char *evutil_inet_ntop(int af, const void *src, char *dst, size_t len);
 /** Replacement for inet_pton for platforms which lack it. */
-int evutil_inet_pton(int af, const char *src, void *dst);
+LIBEVENT_API int evutil_inet_pton(int af, const char *src, void *dst);
 struct sockaddr;
 
 /** Parse an IPv4 or IPv6 address, with optional port, from a string.
@@ -477,24 +477,24 @@ struct sockaddr;
        or if out is not large enough to hold the result.  Otherwise returns
        0 on success.
 */
-int evutil_parse_sockaddr_port(const char *str, struct sockaddr *out, int *outlen);
+LIBEVENT_API int evutil_parse_sockaddr_port(const char *str, struct sockaddr *out, int *outlen);
 
 /** Compare two sockaddrs; return 0 if they are equal, or less than 0 if sa1
  * preceeds sa2, or greater than 0 if sa1 follows sa2.  If include_port is
  * true, consider the port as well as the address.  Only implemented for
  * AF_INET and AF_INET6 addresses. The ordering is not guaranteed to remain
  * the same between Libevent versions. */
-int evutil_sockaddr_cmp(const struct sockaddr *sa1, const struct sockaddr *sa2,
+LIBEVENT_API int evutil_sockaddr_cmp(const struct sockaddr *sa1, const struct sockaddr *sa2,
     int include_port);
 
 /** As strcasecmp, but always compares the characters in locale-independent
     ASCII.  That's useful if you're handling data in ASCII-based protocols.
  */
-int evutil_ascii_strcasecmp(const char *str1, const char *str2);
+LIBEVENT_API int evutil_ascii_strcasecmp(const char *str1, const char *str2);
 /** As strncasecmp, but always compares the characters in locale-independent
     ASCII.  That's useful if you're handling data in ASCII-based protocols.
  */
-int evutil_ascii_strncasecmp(const char *str1, const char *str2, size_t n);
+LIBEVENT_API int evutil_ascii_strncasecmp(const char *str1, const char *str2, size_t n);
 
 /* Here we define evutil_addrinfo to the native addrinfo type, or redefine it
  * if this system has no getaddrinfo(). */
@@ -634,13 +634,13 @@ struct evutil_addrinfo;
  *
  * For a nonblocking variant, see evdns_getaddrinfo.
  */
-int evutil_getaddrinfo(const char *nodename, const char *servname,
+LIBEVENT_API int evutil_getaddrinfo(const char *nodename, const char *servname,
     const struct evutil_addrinfo *hints_in, struct evutil_addrinfo **res);
 
 /** Release storage allocated by evutil_getaddrinfo or evdns_getaddrinfo. */
-void evutil_freeaddrinfo(struct evutil_addrinfo *ai);
+LIBEVENT_API void evutil_freeaddrinfo(struct evutil_addrinfo *ai);
 
-const char *evutil_gai_strerror(int err);
+LIBEVENT_API const char *evutil_gai_strerror(int err);
 
 /** Generate n bytes of secure pseudorandom data, and store them in buf.
  *
@@ -648,7 +648,7 @@ const char *evutil_gai_strerror(int err);
  * using the platform's entropy source (/dev/urandom on Unix-like systems;
  * CryptGenRandom on Windows).
  */
-void evutil_secure_rng_get_bytes(void *buf, size_t n);
+LIBEVENT_API void evutil_secure_rng_get_bytes(void *buf, size_t n);
 
 /**
  * Seed the secure random number generator if needed, and return 0 on
@@ -666,7 +666,7 @@ void evutil_secure_rng_get_bytes(void *buf, size_t n);
  * whatever), and you want to make sure that seeding happens before your
  * program loses the ability to do it.
  */
-int evutil_secure_rng_init(void);
+LIBEVENT_API int evutil_secure_rng_init(void);
 
 /** Seed the random number generator with extra random bytes.
 
@@ -682,7 +682,7 @@ int evutil_secure_rng_init(void);
     @param dat a buffer full of a strong source of random numbers
     @param datlen the number of bytes to read from datlen
  */
-void evutil_secure_rng_add_bytes(const char *dat, size_t datlen);
+LIBEVENT_API void evutil_secure_rng_add_bytes(const char *dat, size_t datlen);
 
 #ifdef __cplusplus
 }

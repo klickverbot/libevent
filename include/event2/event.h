@@ -314,7 +314,7 @@ struct event_config
  *
  * @see event_debug_unassign()
  */
-void event_enable_debug_mode(void);
+LIBEVENT_API void event_enable_debug_mode(void);
 
 /**
  * When debugging mode is enabled, informs Libevent that an event should no
@@ -325,7 +325,7 @@ void event_enable_debug_mode(void);
  *
  * @see event_enable_debug_mode()
  */
-void event_debug_unassign(struct event *);
+LIBEVENT_API void event_debug_unassign(struct event *);
 
 /**
  * Create and return a new event_base to use with the rest of Libevent.
@@ -334,7 +334,7 @@ void event_debug_unassign(struct event *);
  *
  * @see event_base_free(), event_base_new_with_config()
  */
-struct event_base *event_base_new(void);
+LIBEVENT_API struct event_base *event_base_new(void);
 
 /**
   Reinitialize the event base after a fork
@@ -346,7 +346,7 @@ struct event_base *event_base_new(void);
   @return 0 if successful, or -1 if some events could not be re-added.
   @see event_base_new()
 */
-int event_reinit(struct event_base *base);
+LIBEVENT_API int event_reinit(struct event_base *base);
 
 /**
    Event dispatching loop
@@ -361,7 +361,7 @@ int event_reinit(struct event_base *base);
     registered.
   @see event_base_loop()
  */
-int event_base_dispatch(struct event_base *);
+LIBEVENT_API int event_base_dispatch(struct event_base *);
 
 /**
  Get the kernel event notification mechanism used by Libevent.
@@ -369,7 +369,7 @@ int event_base_dispatch(struct event_base *);
  @param eb the event_base structure returned by event_base_new()
  @return a string identifying the kernel event mechanism (kqueue, epoll, etc.)
  */
-const char *event_base_get_method(const struct event_base *);
+LIBEVENT_API const char *event_base_get_method(const struct event_base *);
 
 /**
    Gets all event notification mechanisms supported by Libevent.
@@ -383,7 +383,7 @@ const char *event_base_get_method(const struct event_base *);
      The end of the array is indicated by a NULL pointer.  If an
      error is encountered NULL is returned.
 */
-const char **event_get_supported_methods(void);
+LIBEVENT_API const char **event_get_supported_methods(void);
 
 /**
    Allocates a new event configuration object.
@@ -395,14 +395,14 @@ const char **event_get_supported_methods(void);
      NULL if an error is encountered.
    @see event_base_new_with_config(), event_config_free(), event_config
 */
-struct event_config *event_config_new(void);
+LIBEVENT_API struct event_config *event_config_new(void);
 
 /**
    Deallocates all memory associated with an event configuration object
 
    @param cfg the event configuration object to be freed.
 */
-void event_config_free(struct event_config *cfg);
+LIBEVENT_API void event_config_free(struct event_config *cfg);
 
 /**
    Enters an event method that should be avoided into the configuration.
@@ -416,7 +416,7 @@ void event_config_free(struct event_config *cfg);
    @param method the name of the event method to avoid
    @return 0 on success, -1 on failure.
 */
-int event_config_avoid_method(struct event_config *cfg, const char *method);
+LIBEVENT_API int event_config_avoid_method(struct event_config *cfg, const char *method);
 
 /**
    A flag used to describe which features an event_base (must) provide.
@@ -491,7 +491,7 @@ enum event_base_config_flag {
 
    @see event_method_feature
  */
-int event_base_get_features(const struct event_base *base);
+LIBEVENT_API int event_base_get_features(const struct event_base *base);
 
 /**
    Enters a required event method feature that the application demands.
@@ -515,7 +515,7 @@ int event_base_get_features(const struct event_base *base);
    @return 0 on success, -1 on failure.
    @see event_method_feature, event_base_new_with_config()
 */
-int event_config_require_features(struct event_config *cfg, int feature);
+LIBEVENT_API int event_config_require_features(struct event_config *cfg, int feature);
 
 /**
  * Sets one or more flags to configure what parts of the eventual event_base
@@ -523,7 +523,7 @@ int event_config_require_features(struct event_config *cfg, int feature);
  *
  * @see event_base_config_flags, event_base_new_with_config()
  **/
-int event_config_set_flag(struct event_config *cfg, int flag);
+LIBEVENT_API int event_config_set_flag(struct event_config *cfg, int flag);
 
 /**
  * Records a hint for the number of CPUs in the system. This is used for
@@ -534,7 +534,7 @@ int event_config_set_flag(struct event_config *cfg, int flag);
  * @param cpus the number of cpus
  * @return 0 on success, -1 on failure.
  */
-int event_config_set_num_cpus_hint(struct event_config *cfg, int cpus);
+LIBEVENT_API int event_config_set_num_cpus_hint(struct event_config *cfg, int cpus);
 
 /**
   Initialize the event API.
@@ -548,7 +548,7 @@ int event_config_set_num_cpus_hint(struct event_config *cfg, int cpus);
      or NULL if no event base can be created with the requested event_config.
   @see event_base_new(), event_base_free(), event_init(), event_assign()
 */
-struct event_base *event_base_new_with_config(const struct event_config *);
+LIBEVENT_API struct event_base *event_base_new_with_config(const struct event_config *);
 
 /**
   Deallocate all memory associated with an event_base, and free the base.
@@ -558,7 +558,7 @@ struct event_base *event_base_new_with_config(const struct event_config *);
 
   @param eb an event_base to be freed
  */
-void event_base_free(struct event_base *);
+LIBEVENT_API void event_base_free(struct event_base *);
 
 /** @name Log severities
  */
@@ -585,7 +585,7 @@ typedef void (*event_log_cb)(int severity, const char *msg);
   NOTE: The function you provide *must not* call any other libevent
   functionality.  Doing so can produce undefined behavior.
   */
-void event_set_log_callback(event_log_cb cb);
+LIBEVENT_API void event_set_log_callback(event_log_cb cb);
 
 /**
    A function to be called if Libevent encounters a fatal internal error.
@@ -606,7 +606,7 @@ typedef void (*event_fatal_cb)(int err);
  Libevent will (almost) always log an _EVENT_LOG_ERR message before calling
  this function; look at the last log message to see why Libevent has died.
  */
-void event_set_fatal_callback(event_fatal_cb cb);
+LIBEVENT_API void event_set_fatal_callback(event_fatal_cb cb);
 
 /**
   Associate a different event base with an event.
@@ -617,7 +617,7 @@ void event_set_fatal_callback(event_fatal_cb cb);
   @param ev the event
   @return 0 on success, -1 on failure.
  */
-int event_base_set(struct event_base *, struct event *);
+LIBEVENT_API int event_base_set(struct event_base *, struct event *);
 
 /** @name Loop flags
 
@@ -650,7 +650,7 @@ int event_base_set(struct event_base *, struct event *);
   @see event_base_loopexit(), event_base_dispatch(), EVLOOP_ONCE,
      EVLOOP_NONBLOCK
   */
-int event_base_loop(struct event_base *, int);
+LIBEVENT_API int event_base_loop(struct event_base *, int);
 
 /**
   Exit the event loop after the specified time
@@ -667,7 +667,7 @@ int event_base_loop(struct event_base *, int);
   @return 0 if successful, or -1 if an error occurred
   @see event_base_loopbreak()
  */
-int event_base_loopexit(struct event_base *, const struct timeval *);
+LIBEVENT_API int event_base_loopexit(struct event_base *, const struct timeval *);
 
 /**
   Abort the active event_base_loop() immediately.
@@ -682,7 +682,7 @@ int event_base_loopexit(struct event_base *, const struct timeval *);
   @return 0 if successful, or -1 if an error occurred
   @see event_base_loopexit()
  */
-int event_base_loopbreak(struct event_base *);
+LIBEVENT_API int event_base_loopbreak(struct event_base *);
 
 /**
   Checks if the event loop was told to exit by event_loopexit().
@@ -696,7 +696,7 @@ int event_base_loopbreak(struct event_base *);
   @see event_base_loopexit()
   @see event_base_got_break()
  */
-int event_base_got_exit(struct event_base *);
+LIBEVENT_API int event_base_got_exit(struct event_base *);
 
 /**
   Checks if the event loop was told to abort immediately by event_loopbreak().
@@ -710,7 +710,7 @@ int event_base_got_exit(struct event_base *);
   @see event_base_loopbreak()
   @see event_base_got_exit()
  */
-int event_base_got_break(struct event_base *);
+LIBEVENT_API int event_base_got_break(struct event_base *);
 
 /**
  * @name event flags
@@ -830,7 +830,7 @@ typedef void (*event_callback_fn)(evutil_socket_t, short, void *);
     event_free().
   @see event_free(), event_add(), event_del(), event_assign()
  */
-struct event *event_new(struct event_base *, evutil_socket_t, short, event_callback_fn, void *);
+LIBEVENT_API struct event *event_new(struct event_base *, evutil_socket_t, short, event_callback_fn, void *);
 
 
 /**
@@ -871,7 +871,16 @@ struct event *event_new(struct event_base *, evutil_socket_t, short, event_callb
   @see event_new(), event_add(), event_del(), event_base_once(),
     event_get_struct_event_size()
   */
-int event_assign(struct event *, struct event_base *, evutil_socket_t, short, event_callback_fn, void *);
+LIBEVENT_API int event_assign(struct event *, struct event_base *, evutil_socket_t, short, event_callback_fn, void *);
+
+/**
+  Create and allocate a new event structure, ready to be added.
+
+  Arguments are as for event_assign; returns a newly allocated struct event *
+  that must later be deallocated with event_free().
+
+ */
+LIBEVENT_API struct event *event_new(struct event_base *, evutil_socket_t, short, event_callback_fn, void *);
 
 /**
    Deallocate a struct event * returned by event_new().
@@ -879,7 +888,7 @@ int event_assign(struct event *, struct event_base *, evutil_socket_t, short, ev
    If the event is pending or active, first make it non-pending and
    non-active.
  */
-void event_free(struct event *);
+LIBEVENT_API void event_free(struct event *);
 
 /**
   Schedule a one-time event
@@ -903,7 +912,7 @@ void event_free(struct event *);
         EV_TIMEOUT event succees immediately.
   @return 0 if successful, or -1 if an error occurred
  */
-int event_base_once(struct event_base *, evutil_socket_t, short, event_callback_fn, void *, const struct timeval *);
+LIBEVENT_API int event_base_once(struct event_base *, evutil_socket_t, short, event_callback_fn, void *, const struct timeval *);
 
 /**
   Add an event to the set of pending events.
@@ -927,7 +936,7 @@ int event_base_once(struct event_base *, evutil_socket_t, short, event_callback_
   @return 0 if successful, or -1 if an error occurred
   @see event_del(), event_assign(), event_new()
   */
-int event_add(struct event *ev, const struct timeval *timeout);
+LIBEVENT_API int event_add(struct event *ev, const struct timeval *timeout);
 
 /**
   Remove an event from the set of monitored events.
@@ -940,7 +949,7 @@ int event_add(struct event *ev, const struct timeval *timeout);
   @return 0 if successful, or -1 if an error occurred
   @see event_add()
  */
-int event_del(struct event *);
+LIBEVENT_API int event_del(struct event *);
 
 
 /**
@@ -957,7 +966,8 @@ int event_del(struct event *);
   @param res a set of flags to pass to the event's callback.
   @param ncalls an obsolete argument: this is ignored.
  **/
-void event_active(struct event *ev, int res, short ncalls);
+LIBEVENT_API void event_active(struct event *ev, int res, short ncalls);
+
 
 /**
   Checks if a specific event is pending or scheduled.
@@ -972,7 +982,7 @@ void event_active(struct event *ev, int res, short ncalls);
   @return true if the event is pending on any of the events in 'what', (that
   is to say, it has been added), or 0 if the event is not added.
  */
-int event_pending(const struct event *ev, short events, struct timeval *tv);
+LIBEVENT_API int event_pending(const struct event *ev, short events, struct timeval *tv);
 
 
 /**
@@ -990,7 +1000,7 @@ int event_pending(const struct event *ev, short events, struct timeval *tv);
   @return 1 if the structure might be initialized, or 0 if it has not been
           initialized
  */
-int event_initialized(const struct event *ev);
+LIBEVENT_API int event_initialized(const struct event *ev);
 
 /**
    Get the signal number assigned to a signal event
@@ -1001,27 +1011,27 @@ int event_initialized(const struct event *ev);
    Get the socket or signal assigned to an event, or -1 if the event has
    no socket.
 */
-evutil_socket_t event_get_fd(const struct event *ev);
+LIBEVENT_API evutil_socket_t event_get_fd(const struct event *ev);
 
 /**
    Get the event_base associated with an event.
 */
-struct event_base *event_get_base(const struct event *ev);
+LIBEVENT_API struct event_base *event_get_base(const struct event *ev);
 
 /**
    Return the events (EV_READ, EV_WRITE, etc) assigned to an event.
 */
-short event_get_events(const struct event *ev);
+LIBEVENT_API short event_get_events(const struct event *ev);
 
 /**
    Return the callback assigned to an event.
 */
-event_callback_fn event_get_callback(const struct event *ev);
+LIBEVENT_API event_callback_fn event_get_callback(const struct event *ev);
 
 /**
    Return the callback argument assigned to an event.
 */
-void *event_get_callback_arg(const struct event *ev);
+LIBEVENT_API void *event_get_callback_arg(const struct event *ev);
 
 /**
    Extract _all_ of arguments given to construct a given event.  The
@@ -1030,7 +1040,7 @@ void *event_get_callback_arg(const struct event *ev);
 
    If any of the "_out" arguments is NULL, it will be ignored.
  */
-void event_get_assignment(const struct event *event,
+LIBEVENT_API void event_get_assignment(const struct event *event,
     struct event_base **base_out, evutil_socket_t *fd_out, short *events_out,
     event_callback_fn *callback_out, void **arg_out);
 
@@ -1047,7 +1057,7 @@ void event_get_assignment(const struct event *event,
    We might do this to help ensure ABI-compatibility between different
    versions of Libevent.
  */
-size_t event_get_struct_event_size(void);
+LIBEVENT_API size_t event_get_struct_event_size(void);
 
 /**
    Get the Libevent version.
@@ -1058,7 +1068,7 @@ size_t event_get_struct_event_size(void);
 
    @return a string containing the version number of Libevent
 */
-const char *event_get_version(void);
+LIBEVENT_API const char *event_get_version(void);
 
 /**
    Return a numeric representation of Libevent's version.
@@ -1071,7 +1081,7 @@ const char *event_get_version(void);
    the version number.  The low-order byte is unused.  For example, version
    2.0.1-alpha has a numeric representation of 0x02000100
 */
-ev_uint32_t event_get_version_number(void);
+LIBEVENT_API ev_uint32_t event_get_version_number(void);
 
 /** As event_get_version, but gives the version of Libevent's headers. */
 #define LIBEVENT_VERSION _EVENT_VERSION
@@ -1108,7 +1118,7 @@ ev_uint32_t event_get_version_number(void);
   @return 0 if successful, or -1 if an error occurred
   @see event_priority_set()
  */
-int	event_base_priority_init(struct event_base *, int);
+LIBEVENT_API int	event_base_priority_init(struct event_base *, int);
 
 /**
   Assign a priority to an event.
@@ -1118,7 +1128,7 @@ int	event_base_priority_init(struct event_base *, int);
   @return 0 if successful, or -1 if an error occurred
   @see event_priority_init()
   */
-int	event_priority_set(struct event *, int);
+LIBEVENT_API int	event_priority_set(struct event *, int);
 
 /**
    Prepare an event_base to use a large number of timeouts with the same
@@ -1139,7 +1149,7 @@ int	event_priority_set(struct event *, int);
    (This optimization probably will not be worthwhile until you have thousands
    or tens of thousands of events with the same timeout.)
  */
-const struct timeval *event_base_init_common_timeout(struct event_base *base,
+LIBEVENT_API const struct timeval *event_base_init_common_timeout(struct event_base *base,
     const struct timeval *duration);
 
 #if !defined(_EVENT_DISABLE_MM_REPLACEMENT) || defined(_EVENT_IN_DOXYGEN)
@@ -1165,7 +1175,7 @@ const struct timeval *event_base_init_common_timeout(struct event_base *base,
  @param realloc_fn A replacement for realloc
  @param free_fn A replacement for free.
  **/
-void event_set_mem_functions(
+LIBEVENT_API void event_set_mem_functions(
 	void *(*malloc_fn)(size_t sz),
 	void *(*realloc_fn)(void *ptr, size_t sz),
 	void (*free_fn)(void *ptr));
@@ -1174,7 +1184,7 @@ void event_set_mem_functions(
 #define EVENT_SET_MEM_FUNCTIONS_IMPLEMENTED
 #endif
 
-void event_base_dump_events(struct event_base *, FILE *);
+LIBEVENT_API void event_base_dump_events(struct event_base *, FILE *);
 
 /** Sets 'tv' to the current time (as returned by gettimeofday()),
     looking at the cached value in 'base' if possible, and calling
@@ -1187,7 +1197,7 @@ void event_base_dump_events(struct event_base *, FILE *);
 
     Returns 0 on success, negative on failure.
  */
-int event_base_gettimeofday_cached(struct event_base *base,
+LIBEVENT_API int event_base_gettimeofday_cached(struct event_base *base,
     struct timeval *tv);
 
 #ifdef __cplusplus

@@ -72,7 +72,7 @@
 	  error occurred
   @see bufferevent_base_set(), bufferevent_free()
   */
-struct bufferevent *bufferevent_new(evutil_socket_t fd,
+LIBEVENT_API struct bufferevent *bufferevent_new(evutil_socket_t fd,
     evbuffercb readcb, evbuffercb writecb, everrorcb errorcb, void *cbarg);
 
 
@@ -83,7 +83,7 @@ struct bufferevent *bufferevent_new(evutil_socket_t fd,
   @param timeout_read the read timeout
   @param timeout_write the write timeout
  */
-void bufferevent_settimeout(struct bufferevent *bufev,
+LIBEVENT_API void bufferevent_settimeout(struct bufferevent *bufev,
     int timeout_read, int timeout_write);
 
 #define EVBUFFER_READ		BEV_EVENT_READING

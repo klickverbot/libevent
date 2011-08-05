@@ -187,7 +187,7 @@ int evrpc_send_request_##rpcname(struct evrpc_pool *, \
 struct evrpc_pool;
 
 /** use EVRPC_GENERATE instead */
-struct evrpc_request_wrapper *evrpc_make_request_ctx(
+LIBEVENT_API struct evrpc_request_wrapper *evrpc_make_request_ctx(
 	struct evrpc_pool *pool, void *request, void *reply,
 	const char *rpcname,
 	void (*req_marshal)(struct evbuffer*, void *),
@@ -257,11 +257,11 @@ struct evrpc_request_wrapper *evrpc_make_request_ctx(
 #define EVRPC_REQUEST_HTTP(rpc_req) (rpc_req)->http_req
 
 /** completes the server response to an rpc request */
-void evrpc_request_done(struct evrpc_req_generic *req);
+LIBEVENT_API void evrpc_request_done(struct evrpc_req_generic *req);
 
 /** accessors for request and reply */
-void *evrpc_get_request(struct evrpc_req_generic *req);
-void *evrpc_get_reply(struct evrpc_req_generic *req);
+LIBEVENT_API void *evrpc_get_request(struct evrpc_req_generic *req);
+LIBEVENT_API void *evrpc_get_reply(struct evrpc_req_generic *req);
 
 /** Creates the reply to an RPC request
  *
@@ -288,7 +288,7 @@ struct evhttp;
  * @return a newly allocated evrpc_base struct
  * @see evrpc_free()
  */
-struct evrpc_base *evrpc_init(struct evhttp *server);
+LIBEVENT_API struct evrpc_base *evrpc_init(struct evhttp *server);
 
 /**
  * Frees the evrpc base
@@ -298,7 +298,7 @@ struct evrpc_base *evrpc_init(struct evhttp *server);
  * @param base the evrpc_base object to be freed
  * @see evrpc_init
  */
-void evrpc_free(struct evrpc_base *base);
+LIBEVENT_API void evrpc_free(struct evrpc_base *base);
 
 /** register RPCs with the HTTP Server
  *
@@ -334,7 +334,7 @@ void evrpc_free(struct evrpc_base *base);
 
    @see EVRPC_REGISTER()
 */
-int evrpc_register_rpc(struct evrpc_base *, struct evrpc *,
+LIBEVENT_API int evrpc_register_rpc(struct evrpc_base *, struct evrpc *,
     void (*)(struct evrpc_req_generic*, void *), void *);
 
 /**
@@ -347,7 +347,7 @@ int evrpc_register_rpc(struct evrpc_base *, struct evrpc *,
  */
 #define EVRPC_UNREGISTER(base, name) evrpc_unregister_rpc((base), #name)
 
-int evrpc_unregister_rpc(struct evrpc_base *base, const char *name);
+LIBEVENT_API int evrpc_unregister_rpc(struct evrpc_base *base, const char *name);
 
 /*
  * Client-side RPC support
@@ -385,7 +385,7 @@ struct evrpc_status;
    @returns 0 on success, -1 otherwise.
    @see EVRPC_MAKE_REQUEST(), EVRPC_MAKE_CTX()
 */
-int evrpc_make_request(struct evrpc_request_wrapper *ctx);
+LIBEVENT_API int evrpc_make_request(struct evrpc_request_wrapper *ctx);
 
 /** creates an rpc connection pool
  *
@@ -397,13 +397,13 @@ int evrpc_make_request(struct evrpc_request_wrapper *ctx);
  * @return a newly allocated struct evrpc_pool object
  * @see evrpc_pool_free()
  */
-struct evrpc_pool *evrpc_pool_new(struct event_base *base);
+LIBEVENT_API struct evrpc_pool *evrpc_pool_new(struct event_base *base);
 /** frees an rpc connection pool
  *
  * @param pool a pointer to an evrpc_pool allocated via evrpc_pool_new()
  * @see evrpc_pool_new()
  */
-void evrpc_pool_free(struct evrpc_pool *pool);
+LIBEVENT_API void evrpc_pool_free(struct evrpc_pool *pool);
 
 /**
  * Adds a connection over which rpc can be dispatched to the pool.
@@ -413,7 +413,7 @@ void evrpc_pool_free(struct evrpc_pool *pool);
  * @param pool the pool to which to add the connection
  * @param evcon the connection to add to the pool.
  */
-void evrpc_pool_add_connection(struct evrpc_pool *pool,
+LIBEVENT_API void evrpc_pool_add_connection(struct evrpc_pool *pool,
     struct evhttp_connection *evcon);
 
 /**
@@ -424,7 +424,7 @@ void evrpc_pool_add_connection(struct evrpc_pool *pool,
  * @param pool the pool from which to remove the connection
  * @param evcon the connection to remove from the pool.
  */
-void evrpc_pool_remove_connection(struct evrpc_pool *pool,
+LIBEVENT_API void evrpc_pool_remove_connection(struct evrpc_pool *pool,
     struct evhttp_connection *evcon);
 
 /**
@@ -442,7 +442,7 @@ void evrpc_pool_remove_connection(struct evrpc_pool *pool,
  * @param timeout_in_secs the number of seconds after which a request should
  *   timeout and a failure be returned to the callback.
  */
-void evrpc_pool_set_timeout(struct evrpc_pool *pool, int timeout_in_secs);
+LIBEVENT_API void evrpc_pool_set_timeout(struct evrpc_pool *pool, int timeout_in_secs);
 
 /**
  * Hooks for changing the input and output of RPCs; this can be used to
@@ -489,7 +489,7 @@ enum EVRPC_HOOK_RESULT {
  * @return a handle to the hook so it can be removed later
  * @see evrpc_remove_hook()
  */
-void *evrpc_add_hook(void *vbase,
+LIBEVENT_API void *evrpc_add_hook(void *vbase,
     enum EVRPC_HOOK_TYPE hook_type,
     int (*cb)(void *, struct evhttp_request *, struct evbuffer *, void *),
     void *cb_arg);
@@ -502,7 +502,7 @@ void *evrpc_add_hook(void *vbase,
  * @return 1 on success or 0 on failure
  * @see evrpc_add_hook()
  */
-int evrpc_remove_hook(void *vbase,
+LIBEVENT_API int evrpc_remove_hook(void *vbase,
     enum EVRPC_HOOK_TYPE hook_type,
     void *handle);
 
@@ -511,7 +511,7 @@ int evrpc_remove_hook(void *vbase,
  * @param vbase a pointer to either struct evrpc_base or struct evrpc_pool
  * @param ctx the context pointer provided to the original hook call
  */
-int
+LIBEVENT_API int
 evrpc_resume_request(void *vbase, void *ctx, enum EVRPC_HOOK_RESULT res);
 
 /** adds meta data to request
@@ -525,7 +525,7 @@ evrpc_resume_request(void *vbase, void *ctx, enum EVRPC_HOOK_RESULT res);
  * @param data the data to be associated with the key
  * @param data_size the size of the data
  */
-void evrpc_hook_add_meta(void *ctx, const char *key,
+LIBEVENT_API void evrpc_hook_add_meta(void *ctx, const char *key,
     const void *data, size_t data_size);
 
 /** retrieves meta data previously associated
@@ -538,7 +538,7 @@ void evrpc_hook_add_meta(void *ctx, const char *key,
  * @param data_size pointer to the size of the data
  * @return 0 on success or -1 on failure
  */
-int evrpc_hook_find_meta(void *ctx, const char *key,
+LIBEVENT_API int evrpc_hook_find_meta(void *ctx, const char *key,
     void **data, size_t *data_size);
 
 /**
@@ -547,7 +547,7 @@ int evrpc_hook_find_meta(void *ctx, const char *key,
  * @param ctx the context provided to the hook call
  * @return a pointer to the evhttp_connection object
  */
-struct evhttp_connection *evrpc_hook_get_connection(void *ctx);
+LIBEVENT_API struct evhttp_connection *evrpc_hook_get_connection(void *ctx);
 
 /**
    Function for sending a generic RPC request.
@@ -556,7 +556,7 @@ struct evhttp_connection *evrpc_hook_get_connection(void *ctx);
 
    @see EVRPC_MAKE_REQUEST()
  */
-int evrpc_send_request_generic(struct evrpc_pool *pool,
+LIBEVENT_API int evrpc_send_request_generic(struct evrpc_pool *pool,
     void *request, void *reply,
     void (*cb)(struct evrpc_status *, void *, void *, void *),
     void *cb_arg,
@@ -572,7 +572,7 @@ int evrpc_send_request_generic(struct evrpc_pool *pool,
 
    @see EVRPC_REGISTER()
  */
-int
+LIBEVENT_API int
 evrpc_register_generic(struct evrpc_base *base, const char *name,
     void (*callback)(struct evrpc_req_generic *, void *), void *cbarg,
     void *(*req_new)(void *), void *req_new_arg, void (*req_free)(void *),
@@ -582,10 +582,10 @@ evrpc_register_generic(struct evrpc_base *base, const char *name,
     void (*rpl_marshal)(struct evbuffer *, void *));
 
 /** accessors for obscure and undocumented functionality */
-struct evrpc_pool* evrpc_request_get_pool(struct evrpc_request_wrapper *ctx);
-void evrpc_request_set_pool(struct evrpc_request_wrapper *ctx,
+LIBEVENT_API struct evrpc_pool* evrpc_request_get_pool(struct evrpc_request_wrapper *ctx);
+LIBEVENT_API void evrpc_request_set_pool(struct evrpc_request_wrapper *ctx,
     struct evrpc_pool *pool);
-void evrpc_request_set_cb(struct evrpc_request_wrapper *ctx,
+LIBEVENT_API void evrpc_request_set_cb(struct evrpc_request_wrapper *ctx,
     void (*cb)(struct evrpc_status*, void *request, void *reply, void *arg),
     void *cb_arg);
 

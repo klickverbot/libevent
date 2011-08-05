@@ -64,7 +64,7 @@ enum bufferevent_ssl_state {
    @param options One or more bufferevent_options
    @return A new bufferevent on success, or NULL on failure
 */
-struct bufferevent *
+LIBEVENT_API struct bufferevent *
 bufferevent_openssl_filter_new(struct event_base *base,
     struct bufferevent *underlying,
     struct ssl_st *ssl,
@@ -81,22 +81,23 @@ bufferevent_openssl_filter_new(struct event_base *base,
    @param options One or more bufferevent_options
    @return A new bufferevent on success, or NULL on failure.
 */
-struct bufferevent *
+LIBEVENT_API struct bufferevent *
 bufferevent_openssl_socket_new(struct event_base *base,
     evutil_socket_t fd,
     struct ssl_st *ssl,
     enum bufferevent_ssl_state state,
     int options);
 
+
 /** Return the underlying openssl SSL * object for an SSL bufferevent. */
-struct ssl_st *
+LIBEVENT_API struct ssl_st *
 bufferevent_openssl_get_ssl(struct bufferevent *bufev);
 
 /** Tells a bufferevent to begin SSL renegotiation. */
-int bufferevent_ssl_renegotiate(struct bufferevent *bev);
+LIBEVENT_API int bufferevent_ssl_renegotiate(struct bufferevent *bev);
 
 /** Return the most recent OpenSSL error reported on an SSL bufferevent. */
-unsigned long bufferevent_get_openssl_error(struct bufferevent *bev);
+LIBEVENT_API unsigned long bufferevent_get_openssl_error(struct bufferevent *bev);
 
 #endif
 

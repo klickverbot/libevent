@@ -181,7 +181,7 @@ enum bufferevent_options {
 	  error occurred
   @see bufferevent_free()
   */
-struct bufferevent *bufferevent_socket_new(struct event_base *base, evutil_socket_t fd, int options);
+LIBEVENT_API struct bufferevent *bufferevent_socket_new(struct event_base *base, evutil_socket_t fd, int options);
 
 /**
    Launch a connect() attempt with a socket-based bufferevent.
@@ -202,7 +202,7 @@ struct bufferevent *bufferevent_socket_new(struct event_base *base, evutil_socke
    @param socklen The length of the address
    @return 0 on success, -1 on failure.
  */
-int bufferevent_socket_connect(struct bufferevent *, struct sockaddr *, int);
+LIBEVENT_API int bufferevent_socket_connect(struct bufferevent *, struct sockaddr *, int);
 
 struct evdns_base;
 /**
@@ -231,7 +231,7 @@ struct evdns_base;
    may block while it waits for a DNS response.	 This is probably not
    what you want.
  */
-int bufferevent_socket_connect_hostname(struct bufferevent *,
+LIBEVENT_API int bufferevent_socket_connect_hostname(struct bufferevent *,
     struct evdns_base *, int, const char *, int);
 
 /**
@@ -242,7 +242,7 @@ int bufferevent_socket_connect_hostname(struct bufferevent *,
    @return DNS error code.
    @see evutil_gai_strerror()
 */
-int bufferevent_socket_get_dns_error(struct bufferevent *bev);
+LIBEVENT_API int bufferevent_socket_get_dns_error(struct bufferevent *bev);
 
 /**
   Assign a bufferevent to a specific event_base.
@@ -255,12 +255,12 @@ int bufferevent_socket_get_dns_error(struct bufferevent *bev);
   @return 0 if successful, or -1 if an error occurred
   @see bufferevent_new()
  */
-int bufferevent_base_set(struct event_base *base, struct bufferevent *bufev);
+LIBEVENT_API int bufferevent_base_set(struct event_base *base, struct bufferevent *bufev);
 
 /**
    Return the event_base used by a bufferevent
 */
-struct event_base *bufferevent_get_base(struct bufferevent *bev);
+LIBEVENT_API struct event_base *bufferevent_get_base(struct bufferevent *bev);
 
 /**
   Assign a priority to a bufferevent.
@@ -271,7 +271,7 @@ struct event_base *bufferevent_get_base(struct bufferevent *bev);
   @param pri the priority to be assigned
   @return 0 if successful, or -1 if an error occurred
   */
-int bufferevent_priority_set(struct bufferevent *bufev, int pri);
+LIBEVENT_API int bufferevent_priority_set(struct bufferevent *bufev, int pri);
 
 
 /**
@@ -279,7 +279,7 @@ int bufferevent_priority_set(struct bufferevent *bufev, int pri);
 
   @param bufev the bufferevent structure to be freed.
   */
-void bufferevent_free(struct bufferevent *bufev);
+LIBEVENT_API void bufferevent_free(struct bufferevent *bufev);
 
 
 /**
@@ -296,7 +296,7 @@ void bufferevent_free(struct bufferevent *bufev);
 	 (readcb, writecb, and errorcb)
   @see bufferevent_new()
   */
-void bufferevent_setcb(struct bufferevent *bufev,
+LIBEVENT_API void bufferevent_setcb(struct bufferevent *bufev,
     bufferevent_data_cb readcb, bufferevent_data_cb writecb,
     bufferevent_event_cb eventcb, void *cbarg);
 
@@ -307,19 +307,19 @@ void bufferevent_setcb(struct bufferevent *bufev,
   @param bufev the bufferevent object for which to change the file descriptor
   @param fd the file descriptor to operate on
 */
-int bufferevent_setfd(struct bufferevent *bufev, evutil_socket_t fd);
+LIBEVENT_API int bufferevent_setfd(struct bufferevent *bufev, evutil_socket_t fd);
 
 /**
    Returns the file descriptor associated with a bufferevent, or -1 if
    no file descriptor is associated with the bufferevent.
  */
-evutil_socket_t bufferevent_getfd(struct bufferevent *bufev);
+LIBEVENT_API evutil_socket_t bufferevent_getfd(struct bufferevent *bufev);
 
 /**
    Returns the underlying bufferevent associated with a bufferevent (if
    the bufferevent is a wrapper), or NULL if there is no underlying bufferevent.
  */
-struct bufferevent *bufferevent_get_underlying(struct bufferevent *bufev);
+LIBEVENT_API struct bufferevent *bufferevent_get_underlying(struct bufferevent *bufev);
 
 /**
   Write data to a bufferevent buffer.
@@ -334,7 +334,7 @@ struct bufferevent *bufferevent_get_underlying(struct bufferevent *bufev);
   @return 0 if successful, or -1 if an error occurred
   @see bufferevent_write_buffer()
   */
-int bufferevent_write(struct bufferevent *bufev,
+LIBEVENT_API int bufferevent_write(struct bufferevent *bufev,
     const void *data, size_t size);
 
 
@@ -347,7 +347,7 @@ int bufferevent_write(struct bufferevent *bufev,
   @return 0 if successful, or -1 if an error occurred
   @see bufferevent_write()
  */
-int bufferevent_write_buffer(struct bufferevent *bufev, struct evbuffer *buf);
+LIBEVENT_API int bufferevent_write_buffer(struct bufferevent *bufev, struct evbuffer *buf);
 
 
 /**
@@ -360,7 +360,7 @@ int bufferevent_write_buffer(struct bufferevent *bufev, struct evbuffer *buf);
   @param size the size of the data buffer, in bytes
   @return the amount of data read, in bytes.
  */
-size_t bufferevent_read(struct bufferevent *bufev, void *data, size_t size);
+LIBEVENT_API size_t bufferevent_read(struct bufferevent *bufev, void *data, size_t size);
 
 /**
   Read data from a bufferevent buffer into an evbuffer.	 This avoids
@@ -370,7 +370,7 @@ size_t bufferevent_read(struct bufferevent *bufev, void *data, size_t size);
   @param buf the evbuffer to which to add data
   @return 0 if successful, or -1 if an error occurred.
  */
-int bufferevent_read_buffer(struct bufferevent *bufev, struct evbuffer *buf);
+LIBEVENT_API int bufferevent_read_buffer(struct bufferevent *bufev, struct evbuffer *buf);
 
 /**
    Returns the input buffer.
@@ -381,7 +381,7 @@ int bufferevent_read_buffer(struct bufferevent *bufev, struct evbuffer *buf);
    @return the evbuffer object for the input buffer
  */
 
-struct evbuffer *bufferevent_get_input(struct bufferevent *bufev);
+LIBEVENT_API struct evbuffer *bufferevent_get_input(struct bufferevent *bufev);
 
 /**
    Returns the output buffer.
@@ -395,7 +395,7 @@ struct evbuffer *bufferevent_get_input(struct bufferevent *bufev);
    @return the evbuffer object for the output buffer
  */
 
-struct evbuffer *bufferevent_get_output(struct bufferevent *bufev);
+LIBEVENT_API struct evbuffer *bufferevent_get_output(struct bufferevent *bufev);
 
 /**
   Enable a bufferevent.
@@ -405,7 +405,7 @@ struct evbuffer *bufferevent_get_output(struct bufferevent *bufev);
   @return 0 if successful, or -1 if an error occurred
   @see bufferevent_disable()
  */
-int bufferevent_enable(struct bufferevent *bufev, short event);
+LIBEVENT_API int bufferevent_enable(struct bufferevent *bufev, short event);
 
 /**
   Disable a bufferevent.
@@ -415,7 +415,7 @@ int bufferevent_enable(struct bufferevent *bufev, short event);
   @return 0 if successful, or -1 if an error occurred
   @see bufferevent_enable()
  */
-int bufferevent_disable(struct bufferevent *bufev, short event);
+LIBEVENT_API int bufferevent_disable(struct bufferevent *bufev, short event);
 
 /**
    Return the events that are enabled on a given bufferevent.
@@ -423,7 +423,7 @@ int bufferevent_disable(struct bufferevent *bufev, short event);
    @param bufev the bufferevent to inspect
    @return A combination of EV_READ | EV_WRITE
  */
-short bufferevent_get_enabled(struct bufferevent *bufev);
+LIBEVENT_API short bufferevent_get_enabled(struct bufferevent *bufev);
 
 /**
   Set the read and write timeout for a bufferevent.
@@ -451,7 +451,7 @@ short bufferevent_get_enabled(struct bufferevent *bufev);
   @param timeout_read the read timeout, or NULL
   @param timeout_write the write timeout, or NULL
  */
-int bufferevent_set_timeouts(struct bufferevent *bufev,
+LIBEVENT_API int bufferevent_set_timeouts(struct bufferevent *bufev,
     const struct timeval *timeout_read, const struct timeval *timeout_write);
 
 /**
@@ -472,20 +472,20 @@ int bufferevent_set_timeouts(struct bufferevent *bufev,
   @param highmark the high watermark to set
 */
 
-void bufferevent_setwatermark(struct bufferevent *bufev, short events,
+LIBEVENT_API void bufferevent_setwatermark(struct bufferevent *bufev, short events,
     size_t lowmark, size_t highmark);
 
 /**
    Acquire the lock on a bufferevent.  Has no effect if locking was not
    enabled with BEV_OPT_THREADSAFE.
  */
-void bufferevent_lock(struct bufferevent *bufev);
+LIBEVENT_API void bufferevent_lock(struct bufferevent *bufev);
 
 /**
    Release the lock on a bufferevent.  Has no effect if locking was not
    enabled with BEV_OPT_THREADSAFE.
  */
-void bufferevent_unlock(struct bufferevent *bufev);
+LIBEVENT_API void bufferevent_unlock(struct bufferevent *bufev);
 
 /**
    Flags that can be passed into filters to let them know how to
@@ -510,7 +510,7 @@ enum bufferevent_flush_mode {
    @param mode either BEV_NORMAL or BEV_FLUSH or BEV_FINISHED
    @return -1 on failure, 0 if no data was produces, 1 if data was produced
  */
-int bufferevent_flush(struct bufferevent *bufev,
+LIBEVENT_API int bufferevent_flush(struct bufferevent *bufev,
     short iotype,
     enum bufferevent_flush_mode mode);
 
@@ -569,7 +569,7 @@ typedef enum bufferevent_filter_result (*bufferevent_filter_cb)(
      this bufferevent is freed.
    @param ctx A context pointer to pass to the filter functions.
  */
-struct bufferevent *
+LIBEVENT_API struct bufferevent *
 bufferevent_filter_new(struct bufferevent *underlying,
 		       bufferevent_filter_cb input_filter,
 		       bufferevent_filter_cb output_filter,
@@ -588,14 +588,14 @@ bufferevent_filter_new(struct bufferevent *underlying,
    @param pair A pointer to an array to hold the two new bufferevent objects.
    @return 0 on success, -1 on failure.
  */
-int bufferevent_pair_new(struct event_base *base, int options,
+LIBEVENT_API int bufferevent_pair_new(struct event_base *base, int options,
     struct bufferevent *pair[2]);
 
 /**
    Given one bufferevent returned by bufferevent_pair_new(), returns the
    other one if it still exists.  Otherwise returns NULL.
  */
-struct bufferevent *bufferevent_pair_get_partner(struct bufferevent *bev);
+LIBEVENT_API struct bufferevent *bufferevent_pair_get_partner(struct bufferevent *bev);
 
 /**
    Abstract type used to configure rate-limiting on a bufferevent or a group
@@ -628,7 +628,7 @@ struct bufferevent_rate_limit_group;
    Note that all rate-limits hare are currently best-effort: future versions
    of Libevent may implement them more tightly.
  */
-struct ev_token_bucket_cfg *ev_token_bucket_cfg_new(
+LIBEVENT_API struct ev_token_bucket_cfg *ev_token_bucket_cfg_new(
 	size_t read_rate, size_t read_burst,
 	size_t write_rate, size_t write_burst,
 	const struct timeval *tick_len);
@@ -638,7 +638,7 @@ struct ev_token_bucket_cfg *ev_token_bucket_cfg_new(
     Note: 'cfg' is not currently reference-counted; it is not safe to free it
     until no bufferevent is using it.
  */
-void ev_token_bucket_cfg_free(struct ev_token_bucket_cfg *cfg);
+LIBEVENT_API void ev_token_bucket_cfg_free(struct ev_token_bucket_cfg *cfg);
 
 /**
    Set the rate-limit of a the bufferevent 'bev' to the one specified in
@@ -651,7 +651,7 @@ void ev_token_bucket_cfg_free(struct ev_token_bucket_cfg *cfg);
 
    Return 0 on sucess, -1 on failure.
  */
-int bufferevent_set_rate_limit(struct bufferevent *bev,
+LIBEVENT_API int bufferevent_set_rate_limit(struct bufferevent *bev,
     struct ev_token_bucket_cfg *cfg);
 
 /**
@@ -671,7 +671,7 @@ int bufferevent_set_rate_limit(struct bufferevent *bev,
    They are: socket-based bufferevents (normal and IOCP-based), and SSL-based
    bufferevents.
  */
-struct bufferevent_rate_limit_group *bufferevent_rate_limit_group_new(
+LIBEVENT_API struct bufferevent_rate_limit_group *bufferevent_rate_limit_group_new(
 	struct event_base *base,
 	const struct ev_token_bucket_cfg *cfg);
 /**
@@ -679,7 +679,7 @@ struct bufferevent_rate_limit_group *bufferevent_rate_limit_group_new(
 
    Return 0 on success, -1 on failure.
 */
-int bufferevent_rate_limit_group_set_cfg(
+LIBEVENT_API int bufferevent_rate_limit_group_set_cfg(
 	struct bufferevent_rate_limit_group *,
 	const struct ev_token_bucket_cfg *);
 
@@ -699,14 +699,14 @@ int bufferevent_rate_limit_group_set_cfg(
 
    Returns 0 on success, -1 on faulre.
  */
-int bufferevent_rate_limit_group_set_min_share(
+LIBEVENT_API int bufferevent_rate_limit_group_set_min_share(
 	struct bufferevent_rate_limit_group *, size_t);
 
 /**
    Free a rate-limiting group.  The group must have no members when
    this function is called.
 */
-void bufferevent_rate_limit_group_free(struct bufferevent_rate_limit_group *);
+LIBEVENT_API void bufferevent_rate_limit_group_free(struct bufferevent_rate_limit_group *);
 
 /**
    Add 'bev' to the list of bufferevents whose aggregate reading and writing
@@ -718,11 +718,11 @@ void bufferevent_rate_limit_group_free(struct bufferevent_rate_limit_group *);
 
    Return 0 on success and -1 on failure.
  */
-int bufferevent_add_to_rate_limit_group(struct bufferevent *bev,
+LIBEVENT_API int bufferevent_add_to_rate_limit_group(struct bufferevent *bev,
     struct bufferevent_rate_limit_group *g);
 
 /** Remove 'bev' from its current rate-limit group (if any). */
-int bufferevent_remove_from_rate_limit_group(struct bufferevent *bev);
+LIBEVENT_API int bufferevent_remove_from_rate_limit_group(struct bufferevent *bev);
 
 /**
    @name Rate limit inspection
@@ -735,12 +735,12 @@ int bufferevent_remove_from_rate_limit_group(struct bufferevent *bev);
 
    @{
  */
-ev_ssize_t bufferevent_get_read_limit(struct bufferevent *bev);
-ev_ssize_t bufferevent_get_write_limit(struct bufferevent *bev);
+LIBEVENT_API ev_ssize_t bufferevent_get_read_limit(struct bufferevent *bev);
+LIBEVENT_API ev_ssize_t bufferevent_get_write_limit(struct bufferevent *bev);
 /*@}*/
 
-ev_ssize_t bufferevent_get_max_to_read(struct bufferevent *bev);
-ev_ssize_t bufferevent_get_max_to_write(struct bufferevent *bev);
+LIBEVENT_API ev_ssize_t bufferevent_get_max_to_read(struct bufferevent *bev);
+LIBEVENT_API ev_ssize_t bufferevent_get_max_to_write(struct bufferevent *bev);
 
 /**
    @name GrouprRate limit inspection
@@ -751,9 +751,9 @@ ev_ssize_t bufferevent_get_max_to_write(struct bufferevent *bev);
 
    @{
  */
-ev_ssize_t bufferevent_rate_limit_group_get_read_limit(
+LIBEVENT_API ev_ssize_t bufferevent_rate_limit_group_get_read_limit(
 	struct bufferevent_rate_limit_group *);
-ev_ssize_t bufferevent_rate_limit_group_get_write_limit(
+LIBEVENT_API ev_ssize_t bufferevent_rate_limit_group_get_write_limit(
 	struct bufferevent_rate_limit_group *);
 /*@}*/
 
@@ -771,8 +771,8 @@ ev_ssize_t bufferevent_rate_limit_group_get_write_limit(
 
    @{
  */
-int bufferevent_decrement_read_limit(struct bufferevent *bev, ev_ssize_t decr);
-int bufferevent_decrement_write_limit(struct bufferevent *bev, ev_ssize_t decr);
+LIBEVENT_API int bufferevent_decrement_read_limit(struct bufferevent *bev, ev_ssize_t decr);
+LIBEVENT_API int bufferevent_decrement_write_limit(struct bufferevent *bev, ev_ssize_t decr);
 /*@}*/
 
 /**
@@ -788,9 +788,9 @@ int bufferevent_decrement_write_limit(struct bufferevent *bev, ev_ssize_t decr);
 
    @{
  */
-int bufferevent_rate_limit_group_decrement_read(
+LIBEVENT_API int bufferevent_rate_limit_group_decrement_read(
 	struct bufferevent_rate_limit_group *, ev_ssize_t);
-int bufferevent_rate_limit_group_decrement_write(
+LIBEVENT_API int bufferevent_rate_limit_group_decrement_write(
 	struct bufferevent_rate_limit_group *, ev_ssize_t);
 /*@}*/
 
@@ -801,7 +801,7 @@ int bufferevent_rate_limit_group_decrement_write(
  * Set the variable pointed to by total_read_out to the total number of bytes
  * ever read on grp, and the variable pointed to by total_written_out to the
  * total number of bytes ever written on grp. */
-void bufferevent_rate_limit_group_get_totals(
+LIBEVENT_API void bufferevent_rate_limit_group_get_totals(
     struct bufferevent_rate_limit_group *grp,
     ev_uint64_t *total_read_out, ev_uint64_t *total_written_out);
 
@@ -810,7 +810,7 @@ void bufferevent_rate_limit_group_get_totals(
  *
  * Reset the number of bytes read or written on grp as given by
  * bufferevent_rate_limit_group_reset_totals(). */
-void
+LIBEVENT_API void
 bufferevent_rate_limit_group_reset_totals(
 	struct bufferevent_rate_limit_group *grp);
 

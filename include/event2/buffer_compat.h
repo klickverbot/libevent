@@ -45,7 +45,7 @@
    @return pointer to a single line, or NULL if an error occurred
 
 */
-char *evbuffer_readline(struct evbuffer *buffer);
+LIBEVENT_API char *evbuffer_readline(struct evbuffer *buffer);
 
 /** Type definition for a callback that is invoked whenever data is added or
     removed from an evbuffer.
@@ -88,7 +88,7 @@ typedef void (*evbuffer_cb)(struct evbuffer *buffer, size_t old_len, size_t new_
 	 or NULL to remove all callbacks.
   @param cbarg an argument to be provided to the callback function
  */
-void evbuffer_setcb(struct evbuffer *buffer, evbuffer_cb cb, void *cbarg);
+LIBEVENT_API void evbuffer_setcb(struct evbuffer *buffer, evbuffer_cb cb, void *cbarg);
 
 
 /**
@@ -99,7 +99,7 @@ void evbuffer_setcb(struct evbuffer *buffer, evbuffer_cb cb, void *cbarg);
   @param len the length of the search string
   @return a pointer to the beginning of the search string, or NULL if the search failed.
  */
-unsigned char *evbuffer_find(struct evbuffer *buffer, const unsigned char *what, size_t len);
+LIBEVENT_API unsigned char *evbuffer_find(struct evbuffer *buffer, const unsigned char *what, size_t len);
 
 /** deprecated in favor of calling the functions directly */
 #define EVBUFFER_LENGTH(x)	evbuffer_get_length(x)

@@ -56,7 +56,7 @@ struct evbuffer;
  * known ones - and we can just ignore the end of an event buffer.
  */
 
-void evtag_init(void);
+LIBEVENT_API void evtag_init(void);
 
 /**
    Unmarshals the header and returns the length of the payload
@@ -65,11 +65,11 @@ void evtag_init(void);
    @param ptag a pointer in which the tag id is being stored
    @returns -1 on failure or the number of bytes in the remaining payload.
 */
-int evtag_unmarshal_header(struct evbuffer *evbuf, ev_uint32_t *ptag);
+LIBEVENT_API int evtag_unmarshal_header(struct evbuffer *evbuf, ev_uint32_t *ptag);
 
-void evtag_marshal(struct evbuffer *evbuf, ev_uint32_t tag, const void *data,
+LIBEVENT_API void evtag_marshal(struct evbuffer *evbuf, ev_uint32_t tag, const void *data,
     ev_uint32_t len);
-void evtag_marshal_buffer(struct evbuffer *evbuf, ev_uint32_t tag,
+LIBEVENT_API void evtag_marshal_buffer(struct evbuffer *evbuf, ev_uint32_t tag,
     struct evbuffer *data);
 
 /**
@@ -82,39 +82,39 @@ void evtag_marshal_buffer(struct evbuffer *evbuf, ev_uint32_t tag,
   @param evbuf evbuffer to store the encoded number
   @param number a 32-bit integer
  */
-void evtag_encode_int(struct evbuffer *evbuf, ev_uint32_t number);
-void evtag_encode_int64(struct evbuffer *evbuf, ev_uint64_t number);
+LIBEVENT_API void evtag_encode_int(struct evbuffer *evbuf, ev_uint32_t number);
+LIBEVENT_API void evtag_encode_int64(struct evbuffer *evbuf, ev_uint64_t number);
 
-void evtag_marshal_int(struct evbuffer *evbuf, ev_uint32_t tag,
+LIBEVENT_API void evtag_marshal_int(struct evbuffer *evbuf, ev_uint32_t tag,
     ev_uint32_t integer);
-void evtag_marshal_int64(struct evbuffer *evbuf, ev_uint32_t tag,
+LIBEVENT_API void evtag_marshal_int64(struct evbuffer *evbuf, ev_uint32_t tag,
     ev_uint64_t integer);
 
-void evtag_marshal_string(struct evbuffer *buf, ev_uint32_t tag,
+LIBEVENT_API void evtag_marshal_string(struct evbuffer *buf, ev_uint32_t tag,
     const char *string);
 
-void evtag_marshal_timeval(struct evbuffer *evbuf, ev_uint32_t tag,
+LIBEVENT_API void evtag_marshal_timeval(struct evbuffer *evbuf, ev_uint32_t tag,
     struct timeval *tv);
 
-int evtag_unmarshal(struct evbuffer *src, ev_uint32_t *ptag,
+LIBEVENT_API int evtag_unmarshal(struct evbuffer *src, ev_uint32_t *ptag,
     struct evbuffer *dst);
-int evtag_peek(struct evbuffer *evbuf, ev_uint32_t *ptag);
-int evtag_peek_length(struct evbuffer *evbuf, ev_uint32_t *plength);
-int evtag_payload_length(struct evbuffer *evbuf, ev_uint32_t *plength);
-int evtag_consume(struct evbuffer *evbuf);
+LIBEVENT_API int evtag_peek(struct evbuffer *evbuf, ev_uint32_t *ptag);
+LIBEVENT_API int evtag_peek_length(struct evbuffer *evbuf, ev_uint32_t *plength);
+LIBEVENT_API int evtag_payload_length(struct evbuffer *evbuf, ev_uint32_t *plength);
+LIBEVENT_API int evtag_consume(struct evbuffer *evbuf);
 
-int evtag_unmarshal_int(struct evbuffer *evbuf, ev_uint32_t need_tag,
+LIBEVENT_API int evtag_unmarshal_int(struct evbuffer *evbuf, ev_uint32_t need_tag,
     ev_uint32_t *pinteger);
-int evtag_unmarshal_int64(struct evbuffer *evbuf, ev_uint32_t need_tag,
+LIBEVENT_API int evtag_unmarshal_int64(struct evbuffer *evbuf, ev_uint32_t need_tag,
     ev_uint64_t *pinteger);
 
-int evtag_unmarshal_fixed(struct evbuffer *src, ev_uint32_t need_tag,
+LIBEVENT_API int evtag_unmarshal_fixed(struct evbuffer *src, ev_uint32_t need_tag,
     void *data, size_t len);
 
-int evtag_unmarshal_string(struct evbuffer *evbuf, ev_uint32_t need_tag,
+LIBEVENT_API int evtag_unmarshal_string(struct evbuffer *evbuf, ev_uint32_t need_tag,
     char **pstring);
 
-int evtag_unmarshal_timeval(struct evbuffer *evbuf, ev_uint32_t need_tag,
+LIBEVENT_API int evtag_unmarshal_timeval(struct evbuffer *evbuf, ev_uint32_t need_tag,
     struct timeval *ptv);
 
 #ifdef __cplusplus

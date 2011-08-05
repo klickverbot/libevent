@@ -360,4 +360,16 @@
 /* Define to `int' if <sys/types.h> does not define. */
 #define _EVENT_ssize_t SSIZE_T
 
+#ifdef _MSC_VER
+  #if defined(LIBEVENT_DLL_EXPORT)
+    #define LIBEVENT_API __declspec(dllexport)
+  #elif defined(LIBEVENT_DLL_IMPORT)
+    #define LIBEVENT_API __declspec(dllimport)
+  #else
+    #define LIBEVENT_API
+  #endif
+#else
+  #define LIBEVENT_API
+#endif
+
 #endif

@@ -66,7 +66,7 @@ extern "C" {
   @return 0 if successful, or -1 if an error occurred
   @see evdns_shutdown()
  */
-int evdns_init(void);
+LIBEVENT_API int evdns_init(void);
 
 struct evdns_base;
 /**
@@ -76,7 +76,7 @@ struct evdns_base;
    @deprecated This function is deprecated because use of the global
      evdns_base is error-prone.
  */
-struct evdns_base *evdns_get_global_base(void);
+LIBEVENT_API struct evdns_base *evdns_get_global_base(void);
 
 /**
   Shut down the asynchronous DNS resolver and terminate all active requests.
@@ -93,7 +93,7 @@ struct evdns_base *evdns_get_global_base(void);
 		active requests will return DNS_ERR_SHUTDOWN.
   @see evdns_init()
  */
-void evdns_shutdown(int fail_requests);
+LIBEVENT_API void evdns_shutdown(int fail_requests);
 
 /**
   Add a nameserver.
@@ -109,7 +109,7 @@ void evdns_shutdown(int fail_requests);
   @return 0 if successful, or -1 if an error occurred
   @see evdns_nameserver_ip_add()
  */
-int evdns_nameserver_add(unsigned long int address);
+LIBEVENT_API int evdns_nameserver_add(unsigned long int address);
 
 /**
   Get the number of configured nameservers.
@@ -126,7 +126,7 @@ int evdns_nameserver_add(unsigned long int address);
   @return the number of configured nameservers
   @see evdns_nameserver_add()
  */
-int evdns_count_nameservers(void);
+LIBEVENT_API int evdns_count_nameservers(void);
 
 /**
   Remove all configured nameservers, and suspend all pending resolves.
@@ -140,7 +140,7 @@ int evdns_count_nameservers(void);
   @return 0 if successful, or -1 if an error occurred
   @see evdns_resume()
  */
-int evdns_clear_nameservers_and_suspend(void);
+LIBEVENT_API int evdns_clear_nameservers_and_suspend(void);
 
 /**
   Resume normal operation and continue any suspended resolve requests.
@@ -155,7 +155,7 @@ int evdns_clear_nameservers_and_suspend(void);
   @return 0 if successful, or -1 if an error occurred
   @see evdns_clear_nameservers_and_suspend()
  */
-int evdns_resume(void);
+LIBEVENT_API int evdns_resume(void);
 
 /**
   Add a nameserver.
@@ -170,7 +170,7 @@ int evdns_resume(void);
   @return 0 if successful, or -1 if an error occurred
   @see evdns_nameserver_add()
  */
-int evdns_nameserver_ip_add(const char *ip_as_string);
+LIBEVENT_API int evdns_nameserver_ip_add(const char *ip_as_string);
 
 /**
   Lookup an A record for a given name.
@@ -186,7 +186,7 @@ int evdns_nameserver_ip_add(const char *ip_as_string);
   @return 0 if successful, or -1 if an error occurred
   @see evdns_resolve_ipv6(), evdns_resolve_reverse(), evdns_resolve_reverse_ipv6()
  */
-int evdns_resolve_ipv4(const char *name, int flags, evdns_callback_type callback, void *ptr);
+LIBEVENT_API int evdns_resolve_ipv4(const char *name, int flags, evdns_callback_type callback, void *ptr);
 
 /**
   Lookup an AAAA record for a given name.
@@ -198,7 +198,7 @@ int evdns_resolve_ipv4(const char *name, int flags, evdns_callback_type callback
   @return 0 if successful, or -1 if an error occurred
   @see evdns_resolve_ipv4(), evdns_resolve_reverse(), evdns_resolve_reverse_ipv6()
  */
-int evdns_resolve_ipv6(const char *name, int flags, evdns_callback_type callback, void *ptr);
+LIBEVENT_API int evdns_resolve_ipv6(const char *name, int flags, evdns_callback_type callback, void *ptr);
 
 struct in_addr;
 struct in6_addr;
@@ -217,7 +217,7 @@ struct in6_addr;
   @return 0 if successful, or -1 if an error occurred
   @see evdns_resolve_reverse_ipv6()
  */
-int evdns_resolve_reverse(const struct in_addr *in, int flags, evdns_callback_type callback, void *ptr);
+LIBEVENT_API int evdns_resolve_reverse(const struct in_addr *in, int flags, evdns_callback_type callback, void *ptr);
 
 /**
   Lookup a PTR record for a given IPv6 address.
@@ -233,7 +233,7 @@ int evdns_resolve_reverse(const struct in_addr *in, int flags, evdns_callback_ty
   @return 0 if successful, or -1 if an error occurred
   @see evdns_resolve_reverse_ipv6()
  */
-int evdns_resolve_reverse_ipv6(const struct in6_addr *in, int flags, evdns_callback_type callback, void *ptr);
+LIBEVENT_API int evdns_resolve_reverse_ipv6(const struct in6_addr *in, int flags, evdns_callback_type callback, void *ptr);
 
 /**
   Set the value of a configuration option.
@@ -251,7 +251,7 @@ int evdns_resolve_reverse_ipv6(const struct in6_addr *in, int flags, evdns_callb
   @param flags Ignored.
   @return 0 if successful, or -1 if an error occurred
  */
-int evdns_set_option(const char *option, const char *val, int flags);
+LIBEVENT_API int evdns_set_option(const char *option, const char *val, int flags);
 
 /**
   Parse a resolv.conf file.
@@ -278,7 +278,7 @@ int evdns_set_option(const char *option, const char *val, int flags);
     occurred (see above)
   @see resolv.conf(3), evdns_config_windows_nameservers()
  */
-int evdns_resolv_conf_parse(int flags, const char *const filename);
+LIBEVENT_API int evdns_resolv_conf_parse(int flags, const char *const filename);
 
 /**
   Clear the list of search domains.
@@ -287,7 +287,7 @@ int evdns_resolv_conf_parse(int flags, const char *const filename);
     caller to specify which evdns_base it applies to.  The recommended
     function is evdns_base_search_clear().
  */
-void evdns_search_clear(void);
+LIBEVENT_API void evdns_search_clear(void);
 
 /**
   Add a domain to the list of search domains
@@ -298,7 +298,7 @@ void evdns_search_clear(void);
 
   @param domain the domain to be added to the search list
  */
-void evdns_search_add(const char *domain);
+LIBEVENT_API void evdns_search_add(const char *domain);
 
 /**
   Set the 'ndots' parameter for searches.
@@ -312,7 +312,7 @@ void evdns_search_add(const char *domain);
 
   @param ndots the new ndots parameter
  */
-void evdns_search_ndots_set(const int ndots);
+LIBEVENT_API void evdns_search_ndots_set(const int ndots);
 
 /**
    As evdns_server_new_with_base.
@@ -322,10 +322,10 @@ void evdns_search_ndots_set(const int ndots);
     function is evdns_add_server_port_with_base().
 
 */
-struct evdns_server_port *evdns_add_server_port(evutil_socket_t socket, int flags, evdns_request_callback_fn_type callback, void *user_data);
+LIBEVENT_API struct evdns_server_port *evdns_add_server_port(evutil_socket_t socket, int flags, evdns_request_callback_fn_type callback, void *user_data);
 
 #ifdef WIN32
-int evdns_config_windows_nameservers(void);
+LIBEVENT_API int evdns_config_windows_nameservers(void);
 #define EVDNS_CONFIG_WINDOWS_NAMESERVERS_IMPLEMENTED
 #endif
 
